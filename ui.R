@@ -7,7 +7,11 @@ shinyUI(pageWithSidebar(
         sliderInput("train.proportion", "Sample proportion in the training set",
                     value = 0.7, min = 0.5, max = 0.9, step = 0.05,),
         sliderInput("threshold", "Likelihood threshold to classify as default",
-                    value = 0.5, min = 0.25, max = 0.75, step = 0.05,)
+                    value = 0.5, min = 0.25, max = 0.75, step = 0.05,),
+        br(),br(),
+        a("App documentation", 
+          href="http://rprados.github.io/DevelopDataProducts/CreditRiskShinnyApp.pdf", 
+          target="_blank")
     ),
     mainPanel(
         h4('ROC plot for a logistic regression model for loan default'),
