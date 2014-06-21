@@ -1,5 +1,5 @@
 ---
-title       : Credit Risk Shinny App
+title       : Credit Risk Shiny App
 subtitle    : Reproducible pitch presentation
 author      : Me
 job         : 
