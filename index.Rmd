@@ -1,0 +1,98 @@
+---
+title       : Credit Risk Shinny App
+subtitle    : Reproducible pitch presentation
+author      : Me
+job         : 
+framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
+highlighter : highlight.js  # {highlight.js, prettify, highlight}
+hitheme     : tomorrow      # 
+widgets     : [mathjax]     # {mathjax, quiz, bootstrap}
+mode        : standalone    # {standalone, draft}
+---
+
+## Accuracy indicators for classification algorithms
+
+There are several statistical measures of the performance of a binary 
+classification algorithm:
+
+1. Accuracy: $ \frac{TP+TN}{P+N} $
+2. Sensitivity: $ \frac{TP}{P} = \frac{TP}{TP+FP}$
+3. Specificity: $ \frac{TN}{N} = \frac{TN}{TN+FN}$
+4. AUC (area under the curve)
+
+*TP=True Positive; TN=True Negative; FP=False Positive; FN=False Negative.*
+
+More details can be found <a href="http://en.wikipedia.org/wiki/Sensitivity_and_specificity">here</a>.
+
+--- .class #id 
+
+## Why AUC?
+
+This simple application try to show why AUC is a more realistic measure than
+others. Accuracy is always sensible to the overfitting to the training set.
+
+---
+
+
+## AUC and ROC curve
+
+If AUC means Area Under the Curve, what is that curve? It's the ROC curve. It
+shows that there is a trade-off between the proportion of True Positive (TP)
+and the proportion of False Positive (FP).
+
+---
+
+
+## Logistic Regression Sample
+
+Our application shows all the above with a simple logistic regression model. A
+sample of the calculations done by the application:
+
+```{r echo=FALSE,message=FALSE}
+library(ROCR)
+library(caret)
+library(ggplot2)
+
+# Loading data
+url = "../../../../../edX/X.The Analytics Edge/Week 3 - Logistic Regression/Assignment/loans_imputed.csv"
+loans = read.csv(url)
+
+# Setting the seed
+set.seed(144)
+
+# Splitting the dataset
+inTrain = createDataPartition(loans$not.fully.paid, p=0.7, list=FALSE)
+train = loans[inTrain,]
+test = loans[-inTrain,]
+
+# Training the logistic model
+loans.log.model = glm(not.fully.paid ~ ., data=train, family="binomial")
+
+# Predicting on the test set
+predicted.risk = predict(loans.log.model, newdata = test, type="response")
+test$predicted.risk = predicted.risk
+
+# Estimating accuracy model
+accuracy = table(test$not.fully.paid, test$predicted.risk >= 0.5)
+ROCRpred = prediction(test$predicted.risk, test$not.fully.paid)
+ACC = (accuracy[1,1] + accuracy[2,2])/sum(accuracy)
+AUC = as.numeric(performance(ROCRpred, "auc")@y.values)
+perf = performance(ROCRpred, "tpr", "fpr")
+plot.data = data.frame(x=perf@x.values, y=perf@y.values)
+names(plot.data) = c("x","y")
+```
+
+The accuracy is `r ACC` and the AUC is `r AUC`.
+
+```{r roc_plot,echo=FALSE,fig.height=5, fig.width=5}
+p0 = ggplot(plot.data, aes(x = x, y = y)) +
+    geom_line(aes(colour = "")) +
+    geom_abline(intercept = 0, slope = 1) +
+    ggtitle("ROC Plot") + 
+    xlab("False Positive Rate (1-Specificity)") +
+    ylab("True Positive Rate (Sensitivity)") +
+    coord_cartesian(xlim=c(0,1), ylim=c(0,1)) +
+    theme_bw()
+p0 + guides(colour=FALSE)
+```
+---
