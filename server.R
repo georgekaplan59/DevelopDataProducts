@@ -5,7 +5,7 @@ library(caret)
 print("Starting server...")
 
 # Loading data
-url = "../../../edX/X.The Analytics Edge/Week 3 - Logistic Regression/Assignment/loans_imputed.csv"
+url = "http://rprados.github.io/DevelopDataProducts/loans.csv"
 loans = read.csv(url)
 print(paste("Data loaded from",url))
 
