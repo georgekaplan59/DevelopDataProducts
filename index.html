@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Credit Risk Shinny App</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Credit Risk Shinny App">
+  <meta name="author" content="Me">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="http://slidifylibraries2.googlecode.com/git/inst/libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="http://slidifylibraries2.googlecode.com/git/inst/libraries/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="http://slidifylibraries2.googlecode.com/git/inst/libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="http://slidifylibraries2.googlecode.com/git/inst/libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  <link rel=stylesheet href="./assets/css/ribbons.css"></link>
+
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="http://slidifylibraries2.googlecode.com/git/inst/libraries/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="http://slidifylibraries2.googlecode.com/git/inst/libraries/frameworks/io2012/js/slides" 
+    src="http://slidifylibraries2.googlecode.com/git/inst/libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <hgroup class="auto-fadein">
+    <h1>Credit Risk Shinny App</h1>
+    <h2>Reproducible pitch presentation</h2>
+    <p>Me<br/></p>
+  </hgroup>
+  <article></article>  
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>Accuracy indicators for classification algorithms</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>There are several statistical measures of the performance of a binary 
+classification algorithm:</p>
+
+<ol>
+<li>Accuracy: $ \frac{TP+TN}{P+N} $</li>
+<li>Sensitivity: $ \frac{TP}{P} = \frac{TP}{TP+FP}$</li>
+<li>Specificity: $ \frac{TN}{N} = \frac{TN}{TN+FN}$</li>
+<li>AUC (area under the curve)</li>
+</ol>
+
+<p><em>TP=True Positive; TN=True Negative; FP=False Positive; FN=False Negative.</em></p>
+
+<p>More details can be found <a href="http://en.wikipedia.org/wiki/Sensitivity_and_specificity">here</a>.</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Why AUC?</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>This simple application try to show why AUC is a more realistic measure than
+others. Accuracy is always sensible to the overfitting to the training set.</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>AUC and ROC curve</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>If AUC means Area Under the Curve, what is that curve? It&#39;s the ROC curve. It
+shows that there is a trade-off between the proportion of True Positive (TP)
+and the proportion of False Positive (FP).</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>Logistic Regression Sample</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Our application shows all the above with a simple logistic regression model. A
+sample of the calculations done by the application:</p>
+
+<p>The accuracy is 0.8375 and the AUC is 0.6879.</p>
+
+<h2><img src="data:image/png;base64,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" alt="plot of chunk roc_plot"> </h2>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='Accuracy indicators for classification algorithms'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='Why AUC?'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='AUC and ROC curve'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='Logistic Regression Sample'>
+         4
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        processEscapes: true
+      }
+    });
+  </script>
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script> -->
+  <script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="http://slidifylibraries2.googlecode.com/git/inst/libraries/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="http://slidifylibraries2.googlecode.com/git/inst/libraries/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>
